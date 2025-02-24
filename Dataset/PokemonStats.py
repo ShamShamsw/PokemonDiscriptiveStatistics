@@ -2,8 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Load your data
-# df = pd.read_csv('pokemon_data.csv') # assuming the data is in a CSV file
+df = pd.read_excel('Dataset/PokemonStats.xlsx')
 
 # Basic Descriptive Statistics
 print(df.describe())
