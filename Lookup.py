@@ -13,15 +13,19 @@ def get_top_five(df, category):
     return df[['name', category]].sort_values(by=category, ascending=False).head(5)
 
 # Function to get the stats of a Pokémon
-def get_pokemon_stats(df, pokemon_name, categories):
-    if pokemon_name not in df['N\name'].values:
+def get_pokemon_rank(df, pokemon_name, categories):
+    pokemon_name = pokemon_name.title()  # Capitalizes first letter of each word
+    
+    if pokemon_name not in df['Name'].values:
         print(f"Pokémon '{pokemon_name}' not found in the dataset.")
         return
     
-    print(f"\nStats for {pokemon_name}:")
-    pokemon_stats = df[df['name'] == pokemon_name][categories].iloc[0]
+    print(f"\nRanks for {pokemon_name} in different categories:")
     for category in categories:
-        print(f"{category.capitalize()}: {pokemon_stats[category]}")
+        df_sorted = df[['Name', category]].sort_values(by=category, ascending=False).reset_index(drop=True)
+        rank = df_sorted[df_sorted['Name'] == pokemon_name].index[0] + 1  # +1 for 1-based ranking
+        stat_value = df_sorted[df_sorted['Name'] == pokemon_name][category].values[0]
+        print(f"{category}: Rank {rank} (Stat: {stat_value})")
 
 # Plot bar graphs for the top 5 Pokémon in each category
 for category in categories:
@@ -37,10 +41,10 @@ for category in categories:
 
 # Take user input and display stats
 while True:
-    pokemon_name = input("Enter the name of a Pokémon (or 'exit' to quit): ").strip()
-    if pokemon_name.lower() == 'exit':
+    pokemon_name = input("Enter the name of a Pokémon (or 'exit' to quit): ").strip().title()  # Format input
+    if pokemon_name.lower() == 'Exit':  # Checking lowercase to match 'exit' exactly
         break
-    get_pokemon_stats(df, pokemon_name, categories)
+    get_pokemon_rank(df, pokemon_name, categories)
 
 # Display the DataFrame
 print(df)
