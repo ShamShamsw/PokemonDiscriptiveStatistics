@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the Excel file
-file_path = '/workspaces/PokemonDiscriptiveStatistics/Dataset/pokemon.xlsx'
+file_path = 'Dataset/pokemon.xlsx'
 df = pd.read_excel(file_path)
 
 # Define the categories
