@@ -10,16 +10,16 @@ categories = ['attack', 'defense', 'sp_attack', 'sp_defense', 'speed']
 
 # Function to get top 5 Pokémon in each category
 def get_top_five(df, category):
-    return df[['Name', category]].sort_values(by=category, ascending=False).head(5)
+    return df[['name', category]].sort_values(by=category, ascending=False).head(5)
 
 # Function to get the stats of a Pokémon
 def get_pokemon_stats(df, pokemon_name, categories):
-    if pokemon_name not in df['Name'].values:
+    if pokemon_name not in df['N\name'].values:
         print(f"Pokémon '{pokemon_name}' not found in the dataset.")
         return
     
     print(f"\nStats for {pokemon_name}:")
-    pokemon_stats = df[df['Name'] == pokemon_name][categories].iloc[0]
+    pokemon_stats = df[df['name'] == pokemon_name][categories].iloc[0]
     for category in categories:
         print(f"{category.capitalize()}: {pokemon_stats[category]}")
 
@@ -27,7 +27,7 @@ def get_pokemon_stats(df, pokemon_name, categories):
 for category in categories:
     top_five = get_top_five(df, category)
     plt.figure(figsize=(10, 6))
-    plt.bar(top_five['Name'], top_five[category], color='skyblue')
+    plt.bar(top_five['name'], top_five[category], color='skyblue')
     plt.xlabel('Pokémon')
     plt.ylabel(category.capitalize())
     plt.title(f'Top 5 Pokémon in {category.capitalize()}')
